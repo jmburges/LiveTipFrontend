@@ -15,50 +15,17 @@
     <script type="text/javascript">
 // when the dom's ready
     $(document).ready(function () {
-      $(document).on("submit","form#homeSearch",function(e){
-        e.preventDefault();
-        console.log("asdf");
-        history.pushState({},"","search?query="+$("#search_field").val());
-        if(navigator.geolocation){
-          navigator.geolocation.getCurrentPosition(handleGetCurrentPosition, onError);
-        }
-      });
+      bind_events();
 
-    $(window).on("popstate", function(e) {
-      var after_slash = location.href.replace(/^(?:\/\/|[^\/]+)*\//, "");
-      var output_html;
-        if(after_slash=="") {
-          output_html = ich.home();
-        $("#wrap").html(output_html);
-        } else {
-          var params = getVars(after_slash);
-          if (after_slash.slice(0,after_slash.indexOf('?'))=="search")
-            { 
-              if(navigator.geolocation){
-                navigator.geolocation.getCurrentPosition(handleGetCurrentPosition, onError);
-              }
-            }
-        }
-    });
     });
     </script>
 
     </head>
     <body>
 		<div id="wrap">
-			<div id="splashlogo"><img src="img/splash-logo.png" /></div>
-			<div id="homeStuff">
-				<form id="homeSearch" name="homeSearch" action="" method="post">
-					<input class="field" id="search_field" name="search" type="text" placeholder="I'm Looking For...">
-                    <div id="search-button" class="field"></div>
-                    <a href="#">
-                        <div class="connect4sqButton field">
-                            <div class="buttonImg"></div>
-                        </div>
-                    </a>
-					<div id="helpText"></div>
-				</form>
-			</div>
 		</div>
+    <script>
+  initial_load();
+    </script>
     </body>
     </html>

@@ -1,20 +1,46 @@
-$.get("/home_template.html", function(data){
+$.ajax({
+  async: false,
+  url:"/home_template.html"
+}).done(function(data){
   ich.addTemplate("home",data);
 });
-$.get("/venue_template.html", function(data){
+$.ajax({
+  async: false,
+  url:"/venue_template.html"
+}).done(function(data){
   ich.addTemplate("venue",data);
 });
-$.get("/venue_results.html", function(data){
+$.ajax({
+  async: false,
+  url:"/venue_results.html"
+}).done(function(data){
   ich.addTemplate("venue_results",data);
 });
+
+
+function initial_load(){
+var after_slash = location.href.replace(/^(?:\/\/|[^\/]+)*\//, "");
+  var output_html;
+if(after_slash=="") {
+  output_html = ich.home();
+  $(output_html[2]).attr("style","");
+  $(output_html[0]).attr("class","");
+  $("#wrap").html(output_html);
+} else {
+  var params = getVars(after_slash);
+  if (after_slash.slice(0,after_slash.indexOf('?'))=="search.html")
+    { 
+      display_results();
+    }
+}
+
+}
 
 function bind_events(){
   $(document).on("submit","form#homeSearch",function(e){
     e.preventDefault();
-    history.pushState({},"","search?query="+$("#search_field").val());
-    if(navigator.geolocation){
-      navigator.geolocation.getCurrentPosition(handleGetCurrentPosition, onError);
-    }
+    history.pushState({},"","search.html?query="+$("#search_field").val());
+    display_results();
   });
 
   $(window).on("popstate", function(e) {
@@ -25,58 +51,74 @@ function bind_events(){
       $("#wrap").html(output_html);
     } else {
       var params = getVars(after_slash);
-      if (after_slash.slice(0,after_slash.indexOf('?'))=="search")
+      if (after_slash.slice(0,after_slash.indexOf('?'))=="search.html")
         { 
-          if(navigator.geolocation){
-            navigator.geolocation.getCurrentPosition(handleGetCurrentPosition, onError);
-          }
+          display_results();
         }
     }
   });
-}
-function handleGetCurrentPosition(location){
 
-    console.log(location.coords.latitude);
-    console.log(location.coords.longitude);
-    var venues = [];
-    var query = getUrlVars()["query"]
+  $(document).on("keypress", "#venue-search-box", function(e){
+    if(e.which == 13){
+      e.preventDefault(); 
+      history.pushState({},"","search.html?query="+$("#venue-search-box").val());
+      if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(handleGetCurrentPosition, onError);
+      }
+    }
+  });
+
+  $(document).on("click","a.venue_link",function(e){
+    e.preventDefault();
+
+    var myRex = /^venues\/(\S+)$/;
+    var myArray = myRex.exec($(this).attr("href"));
+    history.pushState({},"","venue?id="+myArray[1]);
+    // console.log(myArray[1]);
+    var url = "http://temp-pro-tip.herokuapp.com/api/venues/"+myArray[1];
+    $.getJSON(url, function(data){
+      var full_venue = new FullVenue(data["response"]["venue"]);
+      var venue_html = ich.venue(full_venue);
+      $("#wrap").html(venue_html);
+    });
+  });
+
+}
+
+function display_results() {
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(handleGetCurrentPosition, onError);
+  }
+}
+
+function generate_search_url(query,lat,lng){
     var url = "http://temp-pro-tip.herokuapp.com/api/venues/search?"
     if (query!==undefined&&query!=="") {
       url = url + "query="+query+"&"
     }
-    url = url+"limit=10&ll="+location.coords.latitude+","+location.coords.longitude;
+    url = url+"limit=10&ll="+lat+","+lng;
+    return url;
+}
+
+function process_results(lat,lng) {
+    var venues = [];
+    var query = getUrlVars()["query"];
+    url = generate_search_url(query,lat,lng);
+
     $.getJSON(url, function(data){
       $.each(data["response"]["venues"], function(key,val){
         venues.push(new Venue(val));
       });
       venues_html=ich.venue_results({venues:venues, query:decodeURIComponent(query)});
       $("#wrap").html(venues_html);
-      $("#venue-search-box").keypress(function(e){
-        if(e.which == 13){
-          e.preventDefault(); 
-          history.pushState({},"","search?query="+$("#venue-search-box").val());
-          if(navigator.geolocation){
-            navigator.geolocation.getCurrentPosition(handleGetCurrentPosition, onError);
-          }
-        }
-      });
-      $("a.venue_link").click(function(e) {
-        e.preventDefault();
-
-        var myRex = /^venues\/(\S+)$/;
-        var myArray = myRex.exec($(this).attr("href"));
-        history.pushState({},"","venue?id="+myArray[1]);
-        // console.log(myArray[1]);
-        var url = "http://temp-pro-tip.herokuapp.com/api/venues/"+myArray[1];
-        $.getJSON(url, function(data){
-          var full_venue = new FullVenue(data["response"]["venue"]);
-          var venue_html = ich.venue(full_venue);
-          $("#wrap").html(venue_html);
-        });
-      });
     });
 }
+
+function handleGetCurrentPosition(location){
+    process_results(location.coords.latitude,location.coords.longitude);
+}
+
 function onError(){
-console.log("error");
+  console.log("error");
 }
 
