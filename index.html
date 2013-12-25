@@ -25,23 +25,6 @@ $.get("/venue_results.html", function(data){
 
 
     <script type="text/javascript">
-(function() {
-    // There's nothing to do for older browsers ;)
-    if (!window.addEventListener)
-        return;
-    var blockPopstateEvent = true;
-    window.addEventListener("load", function() {
-        // The timeout ensures that popstate-events will be unblocked right
-        // after the load event occured, but not in the same event-loop cycle.
-        setTimeout(function(){ blockPopstateEvent = false; }, 0);
-    }, false);
-    window.addEventListener("popstate", function(evt) {
-        if (blockPopstateEvent && document.readyState=="complete") {
-            evt.preventDefault();
-            evt.stopImmediatePropagation();
-        }
-    }, false);
-})();
 // when the dom's ready
     $(document).ready(function () {
       $(document).on("submit","form#homeSearch",function(e){

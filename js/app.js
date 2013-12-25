@@ -1,29 +1,12 @@
-function getUrlVars()
-{
-    var vars = [], hash;
-    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-    for(var i = 0; i < hashes.length; i++)
-    {
-        hash = hashes[i].split('=');
-        vars.push(hash[0]);
-        vars[hash[0]] = hash[1];
-    }
-    return vars;
-}
-
-function getVars(href)
-{
-    var vars = [], hash;
-    var hashes = href.slice(href.indexOf('?') + 1).split('&');
-    for(var i = 0; i < hashes.length; i++)
-    {
-        hash = hashes[i].split('=');
-        vars.push(hash[0]);
-        vars[hash[0]] = hash[1];
-    }
-    return vars;
-
-}
+$.get("/home_template.html", function(data){
+  ich.addTemplate("home",data);
+});
+$.get("/venue_template.html", function(data){
+  ich.addTemplate("venue",data);
+});
+$.get("/venue_results.html", function(data){
+  ich.addTemplate("venue_results",data);
+});
 
 function handleGetCurrentPosition(location){
 
@@ -70,3 +53,4 @@ function handleGetCurrentPosition(location){
 function onError(){
 console.log("error");
 }
+
