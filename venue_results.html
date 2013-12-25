@@ -1,0 +1,30 @@
+<div class="header">
+        <div class="backarrow"></div>
+        <div class="logo"></div>
+        <div class="searchBar">
+          <input class="textField" id="venue-search-box" name="search" type="text" placeholder="I'm Looking For...">
+          <div class="close-search"><img src="img/x-white.png" /></div>
+        </div>
+        <div class="search"></div>
+      </div>
+      <div id="searchResultsWrap">
+        <div id="searchResults">
+          <div id="name">Search Results for "{{ query }}"</div>
+          {{#venues}}
+          <a class="venue_link" href="venues/{{venue_id}}">
+          <div class="result">
+            <div class="top">
+              <div class="catIcon"><img src="{{category_icon_url}}" /></div>
+              <div class="info">
+                <div class="name">{{name}}</div>
+                <div class="category">{{category_name}}</div>
+                <div class="address">{{location.address}} {{location.city}}, {{location.state}} {{location.postalCode}}</div>
+              </div>
+              <div class="numTips">
+                <img src="img/lightbulb.png" /><div class="actual-num">x {{live_tip_count}}</div>
+              </div>
+            </div>
+          </div></a>
+          {{/venues}}
+        </div>
+      </div>
