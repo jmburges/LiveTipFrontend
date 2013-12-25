@@ -1,30 +1,39 @@
-function getUrlVars()
-{
-    var vars = [], hash;
-    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-    for(var i = 0; i < hashes.length; i++)
-    {
-        hash = hashes[i].split('=');
-        vars.push(hash[0]);
-        vars[hash[0]] = hash[1];
+$.get("/home_template.html", function(data){
+  ich.addTemplate("home",data);
+});
+$.get("/venue_template.html", function(data){
+  ich.addTemplate("venue",data);
+});
+$.get("/venue_results.html", function(data){
+  ich.addTemplate("venue_results",data);
+});
+
+function bind_events(){
+  $(document).on("submit","form#homeSearch",function(e){
+    e.preventDefault();
+    history.pushState({},"","search?query="+$("#search_field").val());
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(handleGetCurrentPosition, onError);
     }
-    return vars;
-}
+  });
 
-function getVars(href)
-{
-    var vars = [], hash;
-    var hashes = href.slice(href.indexOf('?') + 1).split('&');
-    for(var i = 0; i < hashes.length; i++)
-    {
-        hash = hashes[i].split('=');
-        vars.push(hash[0]);
-        vars[hash[0]] = hash[1];
+  $(window).on("popstate", function(e) {
+    var after_slash = location.href.replace(/^(?:\/\/|[^\/]+)*\//, "");
+      var output_html;
+    if(after_slash=="") {
+      output_html = ich.home();
+      $("#wrap").html(output_html);
+    } else {
+      var params = getVars(after_slash);
+      if (after_slash.slice(0,after_slash.indexOf('?'))=="search")
+        { 
+          if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(handleGetCurrentPosition, onError);
+          }
+        }
     }
-    return vars;
-
+  });
 }
-
 function handleGetCurrentPosition(location){
 
     console.log(location.coords.latitude);
@@ -70,3 +79,4 @@ function handleGetCurrentPosition(location){
 function onError(){
 console.log("error");
 }
+
