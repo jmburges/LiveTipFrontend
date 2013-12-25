@@ -8,6 +8,32 @@ $.get("/venue_results.html", function(data){
   ich.addTemplate("venue_results",data);
 });
 
+function bind_events(){
+  $(document).on("submit","form#homeSearch",function(e){
+    e.preventDefault();
+    history.pushState({},"","search?query="+$("#search_field").val());
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(handleGetCurrentPosition, onError);
+    }
+  });
+
+  $(window).on("popstate", function(e) {
+    var after_slash = location.href.replace(/^(?:\/\/|[^\/]+)*\//, "");
+      var output_html;
+    if(after_slash=="") {
+      output_html = ich.home();
+      $("#wrap").html(output_html);
+    } else {
+      var params = getVars(after_slash);
+      if (after_slash.slice(0,after_slash.indexOf('?'))=="search")
+        { 
+          if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(handleGetCurrentPosition, onError);
+          }
+        }
+    }
+  });
+}
 function handleGetCurrentPosition(location){
 
     console.log(location.coords.latitude);
