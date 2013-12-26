@@ -7,4 +7,10 @@
 <strong>City:</strong>{{ location.city }} <br />
 <strong>State:</strong>{{ location.state }} <br />
 <strong>Country:</strong>{{ location.country }} <br />
-<img src="{{photo_url}}">
+<img src="{{photo_url}}"><br /><br />
+
+<h2>Live Tips</h2>
+{{#live_tips }}
+<strong>Content: </strong>{{content}}<br />
+<strong>Created At: </strong>{{created_at}}<br />
+{{/live_tips}}

@@ -40,7 +40,6 @@ if(after_slash=="") {
 
 }
 
-
 function bind_events(){
   $(document).on("submit","form#homeSearch",function(e){
     e.preventDefault();
