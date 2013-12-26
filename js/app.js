@@ -31,10 +31,15 @@ if(after_slash=="") {
   if (after_slash.slice(0,after_slash.indexOf('?'))=="search.html")
     { 
       display_results();
-    }
+    }else if(after_slash.slice(0,after_slash.indexOf('?'))=="venues.html")
+          {
+            console.log("Asdf");
+            display_venue();
+          }
 }
 
 }
+
 
 function bind_events(){
   $(document).on("submit","form#homeSearch",function(e){
@@ -54,7 +59,11 @@ function bind_events(){
       if (after_slash.slice(0,after_slash.indexOf('?'))=="search.html")
         { 
           display_results();
-        }
+        } else if(after_slash.slice(0,after_slash.indexOf('?'))=="venues.html")
+          {
+            console.log("Asdf");
+            display_venue();
+          }
     }
   });
 
@@ -70,19 +79,21 @@ function bind_events(){
 
   $(document).on("click","a.venue_link",function(e){
     e.preventDefault();
+    history.pushState({},"",$(this).attr("href"));
+    display_venue();
+  });
 
-    var myRex = /^venues\/(\S+)$/;
-    var myArray = myRex.exec($(this).attr("href"));
-    history.pushState({},"","venue?id="+myArray[1]);
+}
+
+function display_venue(){
+    var venue_id = getUrlVars()["id"];
     // console.log(myArray[1]);
-    var url = "http://temp-pro-tip.herokuapp.com/api/venues/"+myArray[1];
+    var url = "http://temp-pro-tip.herokuapp.com/api/venues/"+venue_id;
     $.getJSON(url, function(data){
       var full_venue = new FullVenue(data["response"]["venue"]);
       var venue_html = ich.venue(full_venue);
       $("#wrap").html(venue_html);
     });
-  });
-
 }
 
 function display_results() {
