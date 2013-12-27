@@ -1,18 +1,18 @@
 $.ajax({
   async: false,
-  url:"/home_template.html"
+  url:"home_template.html"
 }).done(function(data){
   ich.addTemplate("home",data);
 });
 $.ajax({
   async: false,
-  url:"/venue_template.html"
+  url:"venue_template.html"
 }).done(function(data){
   ich.addTemplate("venue",data);
 });
 $.ajax({
   async: false,
-  url:"/venue_results.html"
+  url:"venue_results.html"
 }).done(function(data){
   ich.addTemplate("venue_results",data);
 });
