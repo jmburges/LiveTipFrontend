@@ -24,6 +24,17 @@
                 <img src="img/lightbulb.png" /><div class="actual-num">x {{live_tip_count}}</div>
               </div>
             </div>
+            {{#live_top_tip }}
+						<hr />
+						<div class="bottom">
+							<div class="quote"><img src="img/left-quote.png" /></div>
+							<div class="tipWrap">
+                <div class="actualTip">{{content}}</div>
+								<div class="time">17 min ago</div>
+							</div>
+							<div class="quote"><img src="img/right-quote.png" /></div>
+						</div>
+            {{/live_top_tip }}
           </div></a>
           {{/venues}}
         </div>

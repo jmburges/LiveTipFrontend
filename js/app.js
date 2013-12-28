@@ -1,18 +1,18 @@
 $.ajax({
   async: false,
-  url:"/home_template.html"
+  url:"home_template.html"
 }).done(function(data){
   ich.addTemplate("home",data);
 });
 $.ajax({
   async: false,
-  url:"/venue_template.html"
+  url:"venue_template.html"
 }).done(function(data){
   ich.addTemplate("venue",data);
 });
 $.ajax({
   async: false,
-  url:"/venue_results.html"
+  url:"venue_results.html"
 }).done(function(data){
   ich.addTemplate("venue_results",data);
 });
@@ -21,6 +21,8 @@ $.ajax({
 function initial_load(){
 var after_slash = location.href.replace(/^(?:\/\/|[^\/]+)*\//, "");
   var output_html;
+var slash_array = after_slash.split("/");
+after_slash = slash_array[slash_array.length-1];
 if(after_slash=="") {
   output_html = ich.home();
   $(output_html[2]).attr("style","");
@@ -40,7 +42,6 @@ if(after_slash=="") {
 
 }
 
-
 function bind_events(){
   $(document).on("submit","form#homeSearch",function(e){
     e.preventDefault();
@@ -51,6 +52,8 @@ function bind_events(){
   $(window).on("popstate", function(e) {
     var after_slash = location.href.replace(/^(?:\/\/|[^\/]+)*\//, "");
       var output_html;
+var slash_array = after_slash.split("/");
+after_slash = slash_array[slash_array.length-1];
     if(after_slash=="") {
       output_html = ich.home();
       $("#wrap").html(output_html);
