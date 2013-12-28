@@ -21,6 +21,8 @@ $.ajax({
 function initial_load(){
 var after_slash = location.href.replace(/^(?:\/\/|[^\/]+)*\//, "");
   var output_html;
+var slash_array = after_slash.split("/");
+after_slash = slash_array[slash_array.length-1];
 if(after_slash=="") {
   output_html = ich.home();
   $(output_html[2]).attr("style","");
@@ -50,6 +52,8 @@ function bind_events(){
   $(window).on("popstate", function(e) {
     var after_slash = location.href.replace(/^(?:\/\/|[^\/]+)*\//, "");
       var output_html;
+var slash_array = after_slash.split("/");
+after_slash = slash_array[slash_array.length-1];
     if(after_slash=="") {
       output_html = ich.home();
       $("#wrap").html(output_html);
