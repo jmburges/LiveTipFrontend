@@ -49,6 +49,10 @@ function bind_events(){
     display_results();
   });
 
+  $(document).on("click","div.backarrow",function(e){
+    window.history.back();
+  });
+
   $(window).on("popstate", function(e) {
     var after_slash = location.href.replace(/^(?:\/\/|[^\/]+)*\//, "");
       var output_html;
