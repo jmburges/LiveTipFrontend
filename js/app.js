@@ -48,6 +48,11 @@ function bind_events(){
     history.pushState({},"","search.html?query="+$("#search_field").val());
     display_results();
   });
+  $(document).on("click","#search-button",function(e){
+    e.preventDefault();
+    history.pushState({},"","search.html?query="+$("#search_field").val());
+    display_results();
+  });
 
   $(document).on("click","div.backarrow",function(e){
     window.history.back();

@@ -31,14 +31,14 @@ $(document).ready(function() {
 	$(document).on("click", ".search", function(){
 		$(".header .logo").fadeOut("fast");
 		$(".header .backarrow").fadeOut("fast");
-
-		rightPos = parseInt($(".header .searchBar").css("padding-right")) + $(".header #venue-search-box").width() - 10;
+		console.log('uhh');
+		rightPos = parseInt($(".header .searchBar").css("padding-right")) + $(".header #venue-search-box").width() + 35;
 		$(".header .search").animate({
 			"right" : rightPos
 		}, "slow", function(){
 			$(".header .searchBar").fadeTo("slow", 1);
 			$(".header .search").css("right", "auto");
-			$(".header .search").css("left", "3%");
+			$(".header .search").css("left", "2.75%");
 		});
 	});
 	$(document).on("click", ".close-search", function(){

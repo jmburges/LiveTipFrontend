@@ -13,7 +13,7 @@ html, body{
 }
 #splashlogo{
     text-align:center;
-    margin-top:300px;
+    margin-top:250px;
 }
 #splashlogo img{
     width:60%;
@@ -82,7 +82,7 @@ form#homeSearch input[name=search]{
 	font-size:150%;
 	font-family:GothamLight;
 	padding:0px 15% 0px 3%;
-	width: 81.5%;
+	width: 100%;
 	
 	-moz-box-shadow: 0 5px 20px #191919, 0px 2px 0px #666;
 	-webkit-box-shadow: 0 5px 20px #191919, 0px 2px 0px #666;
@@ -94,7 +94,7 @@ form#homeSearch #search-button{
     position:absolute;
     font-size:150%;
     height:3em;
-    top:2px;
+    top:0;
     right:0px;
     width:15%;
     z-index:2;
@@ -137,10 +137,16 @@ form#homeSearch #search-button{
     background: -ms-linear-gradient(top, #262e39, #131b26);
     background: -o-linear-gradient(top, #262e39, #131b26);
 }
+.header .left-wrap{
+	position:absolute;
+	top:0;
+	left:0;
+	height:100%;
+	z-index:100;
+}
 .header .backarrow{
 	background: url("../img/back.png") center center no-repeat;
 	height:30px;
-	float:left;
 	padding:0 10px;
 	margin: 15px 0;
 	border-right:1px solid #fff;
@@ -148,6 +154,7 @@ form#homeSearch #search-button{
 	width:50px;
 	cursor: pointer;
 	max-width:50px;
+	float:left;
 }
 .header .logo{
 	background:url("../img/splash-logo.png") center left no-repeat;
@@ -180,7 +187,7 @@ form#homeSearch #search-button{
 }
 .searchBar #venue-search-box{
 	color:#ccc;
-	font-size:150%;
+	font-size:22px;
 	font-family:GothamLight;
 	padding: 13px 0;
 	padding-left: 50px;
@@ -239,7 +246,7 @@ form#homeSearch #search-button{
 #searchResults .result .info{
 	float:left;
 	width:60%;
-	margin: 0 3%;
+	margin: 0 2%;
 }
 #searchResults .result .info .name, #venueInfo #name{
 	color:#fff;
@@ -256,7 +263,7 @@ form#homeSearch #search-button{
 #searchResults .result .numTips{
 	float:right;
 	color:#fff000;
-	width:19%;
+	width:20%;
 	text-shadow: inset 1px 1px 2px #191919;
 	margin-top:5px;
 	max-width:125px;
