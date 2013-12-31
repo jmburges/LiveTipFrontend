@@ -9,19 +9,24 @@
 	</div>
 	<div class="search"></div>
 </div>
-<strong>name:</strong>{{ name }} <br />
-<strong>address:</strong>{{ location.address }} <br />
-<strong>lat:</strong>{{ location.lat }} <br />
-<strong>long:</strong>{{ location.long }} <br />
-<strong>distance:</strong>{{ location.distance }} <br />
-<strong>postalCode:</strong>{{ location.postalCode }} <br />
-<strong>City:</strong>{{ location.city }} <br />
-<strong>State:</strong>{{ location.state }} <br />
-<strong>Country:</strong>{{ location.country }} <br />
-<img src="{{photo_url}}"><br /><br />
-
-<h2>Live Tips</h2>
-{{#live_tips }}
-<strong>Content: </strong>{{content}}<br />
-<strong>Created At: </strong>{{created_at}}<br />
-{{/live_tips}}
+<div class="venue-header">
+	<div class="venue-hero"><<img src="{{photo_url}}" /></div>
+	<div class="gradient"></div>
+	<div class="venue-info">
+		<h1>{{ name }}</h1>
+		<div class="address">{{ location.address }}, {{ location.city }}, {{ location.state }} {{ location.postalCode }}</div>
+	</div>
+</div>
+<div id="tipWrap">
+	<h1>Live Tips</h1>
+	{{#live_tips }}
+	<div class="lt_tip">
+		<div class="quote"><img src="img/left-quote.png" /></div>
+		<div class="tipWrap">
+			<div class="actualTip">{{content}}</div>
+			<div class="time">{{created_at}}</div>
+		</div>
+		<div class="quote"><img src="img/right-quote.png" /></div>
+	</div>
+	{{/live_tips}}
+</div>
