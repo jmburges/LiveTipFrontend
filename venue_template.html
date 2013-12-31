@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="header">
 	<div class="left-wrap">
 		<div class="backarrow"></div>
@@ -24,9 +25,13 @@
 		<div class="quote"><img src="img/left-quote.png" /></div>
 		<div class="tipWrap">
 			<div class="actualTip">{{content}}</div>
-			<div class="time">{{created_at}}</div>
+      <div class="time" title="{{created_at}}"></div>
 		</div>
 		<div class="quote"><img src="img/right-quote.png" /></div>
 	</div>
 	{{/live_tips}}
 </div>
+
+      <script>
+$(".time").timeago();
+      </script>
