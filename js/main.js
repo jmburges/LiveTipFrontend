@@ -20,7 +20,7 @@ $(document).ready(function() {
 	
 	setTimeout(function(){
 		$("#splashlogo").addClass("moveUp");
-	},1500);
+	},1000);
 	
 	setTimeout(function(){
 		$("#homeStuff").fadeIn("slow");
@@ -50,5 +50,8 @@ $(document).ready(function() {
 			$(".header .logo").fadeIn("fast");
 			$(".header .backarrow").fadeIn("fast");
 		});
+	});
+	$(document).on("click", ".header .logo", function(){
+		window.location.href = "/";
 	});
 });
