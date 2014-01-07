@@ -16,7 +16,14 @@
           <a class="venue_link" href="venues.html?id={{venue_id}}">
           <div class="result">
             <div class="top">
-              <div class="catIcon"><img src="{{category_icon_url}}" /></div>
+              <div class="catIcon">
+                {{#category_icon_url}}
+                <img src="{{category_icon_url}}" />
+                {{/category_icon_url}}
+                {{^category_icon_url}}
+                <img src="img/no-cat.png" />
+                {{/category_icon_url}}
+              </div>
               <div class="info">
                 <div class="name">{{name}}</div>
                 <div class="category">{{category_name}}</div>
